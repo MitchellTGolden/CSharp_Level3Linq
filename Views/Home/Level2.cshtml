@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="card-header bg-dark text-light">Level 2</div>
+    <div class="card-body">
+        <p>Using the SportsORM, complete all the following queries and show their results on Level2.cshtml.</p>
+        <ol>
+            <li>...all teams in the Atlantic Soccer Conference</li>
+            @foreach (var l in ViewBag.AllSoccer)
+            {
+            @foreach (var t in ViewBag.AllTeams)
+            {
+                    if (t.LeagueId == l.LeagueId)
+                    {
+                    <ul>@t.Location, @t.TeamName  - @l.Sport, @l.Name </ul>
+                    }
+                }
+            }
+            <li>...all (current) players on the Boston Penguins (Hint: Boston is the Location, Penguins is the TeamName)
+                @foreach (var t in ViewBag.BP)
+            {
+            @foreach (var p in ViewBag.AllPlayers)
+            {
+                    if (t.TeamId == p.TeamId)
+                    {
+                    <ul>@t.Location, @t.TeamName -  @p.FirstName, @p.LastName </ul>
+                    }
+                }
+            }
+            </li>
+            <li>...all (current) players in the International Collegiate Baseball Conference</li>
+            @foreach (var l in ViewBag.IFBC)
+            {
+                <ul>@l.Name, @l.LeagueId</ul>
+                @foreach (var t in ViewBag.AllTeams)
+                {
+                    if(t.LeagueId == l.LeagueId)
+                    {
+                    @foreach (var p in ViewBag.AllPlayers)
+                    {
+                        if(p.TeamId == t.TeamId )
+                        {
+                        <ul>
+                            @p.FirstName, @p.LastName - TID:@t.TeamId LID:@l.LeagueId
+                        </ul>
+                        }
+                    }
+                    }
+                }
+            }
+            <li>...all (current) players in the American Conference of Amateur Football with last name "Lopez"</li>
+            <li>...all football players</li>
+            @* @foreach(var team in ViewBag.AllFootballTeams)
+            {
+                @foreach(var p in team.CurrentPlayers)
+                {
+                    <ul>@p.FirstName, @p.LastName - @team.TeamName</ul>
+                }
+            } *@
+            @foreach(var p in ViewBag.AllPInFTeams)
+            {
+                <ul>@p.FirstName, @p.LastName - @p.CurrentTeam.TeamName</ul>
+            }
+            <li>...all teams with a (current) player named "Sophia"</li>
+            @foreach(var OneTeam in ViewBag.TeamWithPlayerSophia)
+            {
+                <ul>@OneTeam.TeamName</ul>
+                @foreach(var p in OneTeam.CurrentPlayers)
+                {
+                    if(p.FirstName == "Sophia"){
+
+                        <ul>@p.FirstName, @p.LastName - @OneTeam.TeamName</ul>
+                    }
+                    }
+            }
+            <li>...all leagues with a (current) player named "Sophia"</li>
+            @foreach(var l in ViewBag.LeagueWithPlayerSophia)
+            {
+                <ul>@l.Name</ul>
+            }
+            <li>...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders</li>
+            @foreach(var p in ViewBag.PlayersWithLastNameFloresNotWR)
+            {
+                <ul>@p.FirstName, @p.LastName - @p.CurrentTeam.TeamName</ul>
+            }
+        </ol>
+    </div>
+</div>
